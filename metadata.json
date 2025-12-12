@@ -1,0 +1,5 @@
+{
+  "name": "DonorLabel Pro",
+  "description": "Professional barcode label generator for donor management. Inputs for Name, MRN, Request Type, and Room with instant print capabilities.",
+  "requestFramePermissions": []
+}
