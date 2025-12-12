@@ -389,14 +389,14 @@ const App: React.FC = () => {
 
             {/* Recent History Sidebar with Search */}
             {showHistory && (
-               <div className="bg-white rounded-xl shadow-lg border border-slate-200 fixed right-0 top-16 bottom-0 w-80 z-40 overflow-hidden transform transition-transform duration-300 flex flex-col">
+               <div className="bg-white rounded-xl shadow-lg border border-slate-200 fixed right-0 top-16 bottom-0 w-80 z-40 overflow-hidden transform transition-transform duration-300 flex flex-col animate-in slide-in-from-right">
                   {/* Header & Search */}
-                  <div className="p-4 border-b border-slate-100 bg-white z-10 space-y-3">
+                  <div className="p-4 border-b border-slate-100 bg-white z-10 space-y-3 shadow-sm">
                       <div className="flex justify-between items-center">
                         <h3 className="font-bold text-slate-800 flex items-center gap-2">
-                            <History className="w-4 h-4" /> Riwayat
+                            <History className="w-4 h-4 text-teal-600" /> Riwayat Cetak
                         </h3>
-                        <button onClick={() => setShowHistory(false)}><X className="w-5 h-5 text-slate-500" /></button>
+                        <button onClick={() => setShowHistory(false)}><X className="w-5 h-5 text-slate-500 hover:text-slate-700" /></button>
                       </div>
                       
                       {/* Search Bar */}
@@ -404,10 +404,10 @@ const App: React.FC = () => {
                           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
                           <input 
                             type="text" 
-                            placeholder="Cari Nama atau RM..." 
+                            placeholder="Cari Nama atau No RM..." 
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500"
+                            className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all"
                           />
                       </div>
                   </div>
@@ -415,17 +415,25 @@ const App: React.FC = () => {
                   {/* List */}
                   <div className="p-2 space-y-2 overflow-y-auto flex-1 bg-slate-50">
                       {history.length === 0 ? (
-                          <p className="text-center text-slate-400 py-8 text-sm">Belum ada riwayat.</p>
+                          <div className="text-center text-slate-400 py-12 flex flex-col items-center">
+                             <History className="w-10 h-10 mb-2 opacity-20" />
+                             <p className="text-sm">Belum ada riwayat.</p>
+                          </div>
                       ) : filteredHistory.length === 0 ? (
-                          <p className="text-center text-slate-400 py-8 text-sm">Data tidak ditemukan.</p>
+                          <div className="text-center text-slate-400 py-12 flex flex-col items-center">
+                             <Search className="w-10 h-10 mb-2 opacity-20" />
+                             <p className="text-sm">Data tidak ditemukan.</p>
+                          </div>
                       ) : (
                           filteredHistory.map((item) => (
-                              <div key={item.id} className="group relative p-3 bg-white rounded border border-slate-200 hover:border-teal-400 hover:shadow-sm transition-all">
+                              <div key={item.id} className="group relative p-3 bg-white rounded-lg border border-slate-200 hover:border-teal-400 hover:shadow-md transition-all">
                                   <div className="cursor-pointer" onClick={() => handleRestore(item)}>
-                                    <div className="font-bold text-sm text-slate-800 pr-8">{item.nama}</div>
-                                    <div className="text-xs text-slate-500 font-mono mb-1">{item.rekamMedis}</div>
+                                    <div className="font-bold text-sm text-slate-800 pr-8 truncate">{item.nama}</div>
+                                    <div className="text-xs text-slate-500 font-mono mb-2">{item.rekamMedis}</div>
                                     <div className="flex justify-between items-center text-xs">
-                                      <span className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-600">{item.jenisPermintaan}</span>
+                                      <span className={`px-2 py-0.5 rounded font-medium ${item.prioritas === 'Cito' ? 'bg-red-100 text-red-600' : 'bg-slate-100 text-slate-600'}`}>
+                                          {item.jenisPermintaan}
+                                      </span>
                                       <span className="text-slate-400">{new Date(item.timestamp).toLocaleDateString()}</span>
                                     </div>
                                   </div>
@@ -436,7 +444,7 @@ const App: React.FC = () => {
                                       e.stopPropagation();
                                       initiatePrintProcess(item, 'print');
                                     }}
-                                    className="absolute top-2 right-2 p-1.5 bg-slate-50 border border-slate-200 rounded-full text-slate-500 hover:text-teal-600 hover:border-teal-300 shadow-sm transition-colors"
+                                    className="absolute top-2 right-2 p-1.5 bg-slate-50 border border-slate-200 rounded-full text-slate-500 hover:text-teal-600 hover:border-teal-300 hover:bg-teal-50 shadow-sm transition-all"
                                     title="Cetak Ulang"
                                   >
                                     <Printer className="w-3.5 h-3.5" />

@@ -117,7 +117,7 @@ export const RequestForm: React.FC<RequestFormProps> = ({ data, scale = 1 }) => 
           </div>
       </div>
 
-      {/* Aftap Details Table Area */}
+      {/* Aftap Details Table Area - UPDATED COLUMNS */}
       <div className="mb-6">
           <h4 className="font-bold text-sm mb-2">Diisi oleh Petugas:</h4>
           <table className="w-full border-collapse border border-black text-xs text-center">
@@ -131,7 +131,7 @@ export const RequestForm: React.FC<RequestFormProps> = ({ data, scale = 1 }) => 
               </thead>
               <tbody>
                   {[1, 2, 3, 4].map((i) => (
-                      <tr key={i} className="h-8">
+                      <tr key={i} className="h-10">
                           <td className="border border-black"></td>
                           <td className="border border-black"></td>
                           <td className="border border-black"></td>
@@ -142,13 +142,13 @@ export const RequestForm: React.FC<RequestFormProps> = ({ data, scale = 1 }) => 
           </table>
       </div>
 
-      {/* Signature Section */}
-      <div className="flex justify-end mt-12 pr-8">
-          <div className="text-center w-48">
-              <p className="text-sm mb-16">Jakarta, {new Date(data.timestamp).toLocaleDateString('id-ID')}</p>
-              {/* Removed Doctor Text */}
+      {/* Signature Section - UPDATED (Removed Doctor Title) */}
+      <div className="flex justify-end mt-12 pr-12">
+          <div className="text-center w-56">
+              <p className="text-sm mb-20">Jakarta, {new Date(data.timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric'})}</p>
+              
               <div className="border-b border-black mb-1"></div>
-              {/* Removed Doctor Name Variable */}
+              <p className="text-xs text-gray-500 text-left pl-1">( Tanda Tangan & Nama Jelas )</p>
           </div>
       </div>
       
